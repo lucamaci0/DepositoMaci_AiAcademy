@@ -29,6 +29,10 @@ def summary_input_file(file_name: str, n_most_common_words: int = 5):
     with open(full_path, "r", encoding="utf-8", errors="ignore") as f:
         text = f.read()
 
+        lines = text.splitlines()
+        n_lines = len(lines)
+        print(f"The input text contains {n_lines} lines")
+
 
 if __name__ == "__main__":
   
