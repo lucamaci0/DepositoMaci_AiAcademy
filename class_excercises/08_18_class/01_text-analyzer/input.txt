@@ -1,0 +1,3 @@
+This is an example of a possible text_input.txt file.
+The Text_Analyzer.py script should provide simple statistics regarding this file, like row-number, total-word-count, and the top-5 most frequent words used
+Have fun with it.
