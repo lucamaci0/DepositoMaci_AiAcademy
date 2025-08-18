@@ -4,12 +4,11 @@ from collections import Counter
 
 def summary_input_file(file_name: str, n_most_common_words: int = 5):
     """
-    Read the contents of a text file and prints summary statistics.
+    Read the contents of a text file and prints summary statistics about it.
 
     Args:
-        file_name: name of the file to be analyzed. 
-        File should be in the same directory as the Text_Analyzer.py file.
-
+        file_name: name of the file to be analyzed. File should be in the same directory as the Text_Analyzer.py file.
+        n_most_common_words: amount of the most frequent words to print.
     Returns:
         None
 
@@ -37,6 +36,11 @@ def summary_input_file(file_name: str, n_most_common_words: int = 5):
         words = " ".join(text.translate(separate_punctuations).split()).lower().split(" ")
         n_words = len(words)
         print(f"The input text contains {n_words} words (we're separating punctuation-joined-words and counting them separately)")
+        
+        words_counter = Counter(words)
+        most_common_words = words_counter.most_common(n_most_common_words)
+        print(f"The top {n_most_common_words} most common words are: {most_common_words}")
+
 
 if __name__ == "__main__":
   
