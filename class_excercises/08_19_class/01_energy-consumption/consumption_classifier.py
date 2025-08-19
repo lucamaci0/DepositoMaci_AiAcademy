@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, f1_score
 
 
 #####################################################
@@ -17,7 +17,8 @@ datasets_dir = "other/Archivio Datasets/02_Lesson"
 dataset = "AEP_hourly.csv"
 
 should_plot_consumptions = False
-should_plot_decision_tree = True
+should_plot_decision_tree = False
+should_plot_f1_scores = True
 
 # Choose decision-tree target feature:
 # "target_daily", "target_weekly", "target_monthly", "target_yearly"
@@ -27,7 +28,6 @@ target = "target_daily"
 
 
 dataset_dir = os.path.join(datasets_dir,dataset)
-
 df = pd.read_csv(dataset_dir, parse_dates=["Datetime"])
 df = df.sort_values("Datetime").reset_index(drop=True)
 
@@ -125,7 +125,7 @@ if should_plot_decision_tree:
     precision=2
   )
   plt.tight_layout()
-  plt.show()
+  plt.show() # TODO: fix this. It's blocking code until the figure is manually closed. Why?
 
 print(classification_report(y_test, y_pred_tree, digits=3))
 
@@ -143,3 +143,22 @@ y_pred_mlp = mlp.predict(X_test_scaled)
 
 print("Neural Network:")
 print(classification_report(y_test, y_pred_mlp, digits=3))
+
+
+# -------------------------
+# Confronto F1-score
+
+f1_tree = float(f1_score(y_test, y_pred_tree, average="macro"))
+f1_mlp = float(f1_score(y_test, y_pred_mlp, average="macro"))
+
+print(f"Decision Tree F1-score: {f1_tree}")
+print(f"Decision Tree MLP-Classifier: {f1_mlp}")
+
+if should_plot_f1_scores:
+  plt.figure()
+  plt.bar(["Decision Tree", "MLP Neural Network"], [f1_tree, f1_mlp])
+  plt.ylabel("F1 Score")
+  plt.title("Confronto F1 Score tra i Modelli (AEP)")
+  plt.ylim(0, 1)
+  plt.grid(True)
+  plt.show() # TODO: fix this. It's blocking code until the figure is manually closed. Why?
