@@ -62,4 +62,4 @@ plt.xlabel("Datetime")
 plt.ylabel("Consumption (MW)")
 plt.title("Hourly Consumption vs Monthly Average past 2018")
 plt.legend()
-plt.show() # This is blocking until the figure is manually closed. Why?
+plt.show() # TODO: fix this. It's blocking code until the figure is manually closed. Why?
