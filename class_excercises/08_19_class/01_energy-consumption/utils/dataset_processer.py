@@ -2,11 +2,11 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def process_dataset_datetime(dataset_path: str, plot_consumptions: bool = False) -> pd.DataFrame:
+def process_dataset_datetime(dataset_path: str, datetime_col_name: str, plot_consumptions: bool = False) -> pd.DataFrame:
 
   # Load the dataset
 
-  df = pd.read_csv(dataset_path, parse_dates=["Datetime"])
+  df = pd.read_csv(dataset_path, parse_dates=[datetime_col_name])
   df = df.sort_values("Datetime").reset_index(drop=True)
 
   # Derive better calendar features from the Datetime column

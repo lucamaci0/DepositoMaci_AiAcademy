@@ -1,16 +1,17 @@
 import os
 import matplotlib.pyplot as plt
-from dataset_processer import process_dataset_datetime
+from utils.dataset_processer import process_dataset_datetime
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.metrics import classification_report, f1_score
-
 
 datasets_dir = "other/Archivio Datasets/02_Lesson"
 dataset_name = "AEP_hourly.csv"
 dataset_path = os.path.join(datasets_dir, dataset_name)
 
-df = process_dataset_datetime(dataset_path)
+datetime_col_name = "Datetime"
+
+df = process_dataset_datetime(dataset_path, datetime_col_name)
 print(df.head)
 
 
