@@ -1,12 +1,17 @@
 import os
 import pandas as pd
+import matplotlib.pyplot as plt
+
 
 datasets_dir = "other/Archivio Datasets/02_Lesson"
 dataset = "AEP_hourly.csv"
 dataset_dir = os.path.join(datasets_dir,dataset)
 
 df = pd.read_csv(dataset_dir, parse_dates=["Datetime"])
-print(df.head())
+df = df.sort_values("Datetime").reset_index(drop=True)
+
+
+# Derive better calendar features from the Datetime column
 
 df["hour"] = df["Datetime"].dt.hour
 # df["dayofweek"] = df["Datetime"].dt.dayofweek
@@ -32,10 +37,29 @@ df["yearly_avg"] = (
       .transform("mean")
 )
 
+
+# Creation of target variables
+
 df["target_daily"] = (df["AEP_MW"] > df["daily_avg"]).astype(int)
 df["target_weekly"] = (df["AEP_MW"] > df["weekly_avg"]).astype(int)
 df["target_monthly"] = (df["AEP_MW"] > df["monthly_avg"]).astype(int)
 df["target_yearly"] = (df["AEP_MW"] > df["yearly_avg"]).astype(int)
 
-print(df.head(50))
 
+ # Flavour plot
+
+df_filtered = df[df["Datetime"] >= "2018-01-01"]
+
+plt.figure(figsize=(15,6))
+
+# Blue line: actual consumption
+plt.plot(df_filtered["Datetime"], df_filtered["AEP_MW"], color="blue", label="Hourly Consumption", linewidth=0.4)
+
+# Red line: yearly average (step-like constant within each year)
+plt.plot(df_filtered["Datetime"], df_filtered["monthly_avg"], color="red", label="Monthly Average", linewidth=1)
+
+plt.xlabel("Datetime")
+plt.ylabel("Consumption (MW)")
+plt.title("Hourly Consumption vs Monthly Average past 2018")
+plt.legend()
+plt.show() # This is blocking until the figure is manually closed. Why?
