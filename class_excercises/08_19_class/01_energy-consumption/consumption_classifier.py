@@ -32,6 +32,10 @@ df["yearly_avg"] = (
       .transform("mean")
 )
 
+df["target_daily"] = (df["AEP_MW"] > df["daily_avg"]).astype(int)
+df["target_weekly"] = (df["AEP_MW"] > df["weekly_avg"]).astype(int)
+df["target_monthly"] = (df["AEP_MW"] > df["monthly_avg"]).astype(int)
+df["target_yearly"] = (df["AEP_MW"] > df["yearly_avg"]).astype(int)
 
 print(df.head(50))
 
