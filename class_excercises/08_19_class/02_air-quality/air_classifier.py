@@ -20,6 +20,13 @@ df = pd.read_csv(
     dtype={"Date": "string", "Time": "string"}
 )
 
+# How I found out about the faulty "-200" value
+"""
+for col in df.columns:
+  print(f"Column {col} has lowest unique values:")
+  print(df[col].dropna().sort_values().unique()[:10])
+"""
+
 # Replace faulty "-200" entries with "NA"
 df.replace(to_replace=[-200, "-200"], value=pd.NA, inplace=True)
 
@@ -28,13 +35,6 @@ df = df.dropna(axis=1, how="all")
 
 # Drop rows that are entirely empty (the lines made only of semicolons)
 df = df.dropna(how="any")
-
-# How I found out about the faulty "-200" value
-"""
-for col in df.columns:
-  print(f"Column {col} has lowest unique values:")
-  print(df[col].dropna().sort_values().unique()[:10])
-"""
 
 # Extract features from Date
 
