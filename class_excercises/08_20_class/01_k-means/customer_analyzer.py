@@ -7,13 +7,16 @@ from sklearn.cluster import DBSCAN
 import matplotlib.pyplot as plt
 from sklearn.metrics import silhouette_score, silhouette_samples
 
-
-
-ignore_plots = False
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PLOTS_DIR = os.path.join(CURRENT_DIR, "plots")
 BASE_COLORS = {
     0:"#1f77b4", 1:"#ff7f0e", 2:"#2ca02c", 3:"#d62728", 4:"#9467bd",
     5:"#8c564b", 6:"#e377c2", 7:"#7f7f7f", 8:"#bcbd22", 9:"#17becf"
 }
+
+
+ignore_plots = False
+
 ####################################
 # Data Preprocessing
 ####################################
@@ -80,7 +83,7 @@ if not ignore_plots:
   axes[1].set_title("Silhouette vs k")
   axes[1].grid(True, alpha=0.3)
   plt.tight_layout()
-  plt.show()
+  plt.savefig(os.path.join(PLOTS_DIR, "elbow_curve.png"), dpi=300, bbox_inches="tight")
 
 
 # Elbow curves shows that 5 might be the most reasonable number of clusters for this population.
@@ -102,7 +105,7 @@ center_colors = [cluster_colors[i] for i in range(n_clusters)]
 plt.scatter(centers[:,0], centers[:,1], c=center_colors, s=200, marker="X", edgecolor="k")
 plt.xlabel("Annual Income (k$)"); plt.ylabel("Spending Score (1–100)")
 plt.tight_layout(); 
-plt.show()
+plt.savefig(os.path.join(PLOTS_DIR, "k-means_clustering.png"), dpi=300, bbox_inches="tight")
 
 # Distance of each point from the centroid of its cluster
 centroids = scaler.inverse_transform(kmeans.cluster_centers_)
@@ -148,4 +151,4 @@ plt.xticks([])
 plt.ylim(-1, 1)
 plt.legend()
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(PLOTS_DIR, "silhouette_points.png"), dpi=300, bbox_inches="tight")
