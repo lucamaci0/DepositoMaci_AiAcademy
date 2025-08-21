@@ -14,8 +14,8 @@ BASE_COLORS = {
     5:"#8c564b", 6:"#e377c2", 7:"#7f7f7f", 8:"#bcbd22", 9:"#17becf"
 }
 
-
 ignore_plots = False
+
 
 ####################################
 # Data Preprocessing
@@ -71,16 +71,16 @@ if not ignore_plots:
   # Right plot: elbow with inertia
   axes[0].plot(ks, inertias, marker="o")
   axes[0].set_xticks(list(ks))
-  axes[0].set_xlabel("k (number of clusters)")
+  axes[0].set_xlabel("Number of clusters")
   axes[0].set_ylabel("Inertia (sum of squared distances)")
-  axes[0].set_title("Elbow (Inertia vs k)")
+  axes[0].set_title("Inertia vs n_clusters")
   axes[0].grid(True, alpha=0.3)
   # Right plot: elbow with silhouettes
   axes[1].plot(ks_sil, silhouettes, marker="o")
   axes[1].set_xticks(list(ks_sil))
-  axes[1].set_xlabel("k (number of clusters)")
+  axes[1].set_xlabel("Number of clusters")
   axes[1].set_ylabel("Silhouette score")
-  axes[1].set_title("Silhouette vs k")
+  axes[1].set_title("Silhouette vs n_clusters")
   axes[1].grid(True, alpha=0.3)
   plt.tight_layout()
   plt.savefig(os.path.join(PLOTS_DIR, "elbow_curve.png"), dpi=300, bbox_inches="tight")
@@ -136,10 +136,7 @@ sorted_scores  = sample_sil[order]
 sorted_labels  = labels[order]
 bar_colors = [cluster_colors[int(c)] for c in sorted_labels]
 
-
 plt.figure(figsize=(12, 4))
-cmap = cm.get_cmap("tab10", len(np.unique(labels)))
-
 plt.bar(range(len(sorted_scores)), sorted_scores,
         color=bar_colors, edgecolor="black", linewidth=0.3)
 plt.axhline(sil_avg, color="red", linestyle="--", linewidth=2,
