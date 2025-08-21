@@ -9,10 +9,9 @@ from sklearn.metrics import classification_report, f1_score
 
 datasets_dir = "other/Archivio Datasets/02_Lesson"
 dataset_name = "AEP_hourly.csv"
-dataset_path = os.path.join(datasets_dir, dataset_name)
-
 datetime_col_name = "Datetime"
 
+dataset_path = os.path.join(datasets_dir, dataset_name)
 df = process_dataset_datetime(dataset_path, datetime_col_name)
 print(df.head)
 
