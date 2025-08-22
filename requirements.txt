@@ -12,6 +12,7 @@ seaborn
 # Machine learning
 scikit-learn
 xgboost
+optuna
 
 # NLP
 spacy
