@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 from openai import AzureOpenAI
 from tenacity import retry, wait_exponential, stop_after_attempt, stop_after_delay
 
-
 load_dotenv("C:/Users/LH668YN/OneDrive - EY/Desktop/AiAcademy/DepositoMaci_AiAcademy/.env")  #C:/Users/LH668YN/OneDrive - EY/Desktop/
 subscription_key = os.getenv("SUBSCRIPTION_KEY") or ""
 azure_endpoint = os.getenv("AZURE_ENDPOINT") or ""
@@ -19,7 +18,6 @@ client = AzureOpenAI(
     azure_endpoint=azure_endpoint,
     api_key=subscription_key,
 )
-
 
 
 st.title('🤖 Your gpt-4o-mini Assistant')
@@ -52,7 +50,7 @@ if prompt:
     for chunk in client.chat.completions.create(
         model=deployment_name,
         messages=st.session_state.messages,
-        max_tokens=300,
+        max_tokens=500,
         temperature=0.0,
         top_p=1.0,
         frequency_penalty=0.0,
