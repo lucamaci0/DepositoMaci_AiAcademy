@@ -1,5 +1,14 @@
 # requirements.txt
 
+# Environment variable management
+python-dotenv
+
+# Reliability / retries
+tenacity
+
+# App / UI
+streamlit
+
 # Core numerical stack
 numpy
 scipy
@@ -17,3 +26,8 @@ optuna
 # NLP
 spacy
 tiktoken
+sentence-transformers
+
+# OpenAI SDK
+openai>=1.0.0
+openai[agents]>=1.0.0
